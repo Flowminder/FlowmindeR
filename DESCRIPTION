@@ -1,0 +1,20 @@
+Package: FlowmindeR
+Title: Styles and guide for producing graphs in Flowminder branding
+Version: 0.1
+Authors@R: person("Michael", "Harper", , "michael.harper@flowminder.org", c("aut", "cre"))
+Description: Helps create and export ggplot2 charts in the style used by 
+    the Flowmimnder team thanks to two useful functions, one for styling and another for exporting ggplot graphics
+Depends: R (>= 3.3.0)
+Imports:
+    ggplot2,
+    patchwork,
+    dplyr,
+    extrafont,
+    ggpubr,
+    grid
+Remotes:
+    github::cttobin/ggthemr
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
