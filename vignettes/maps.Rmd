@@ -19,7 +19,6 @@ library(tmap)
 
 The following packages are recommended:
 
-
 ```{r}
 
 ```

@@ -124,11 +124,11 @@
 <div id="a-basic-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-basic-chart" class="anchor"></a>A basic chart</h2>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co">#Data for chart from gapminder package</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># Data for chart from gapminder package</span>
 <span class="no">line_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">country</span> <span class="kw">==</span> <span class="st">"Malawi"</span>)
 
-<span class="co">#Make plot</span>
+<span class="co"># Make plot</span>
 <span class="no">line</span> <span class="kw">&lt;-</span>
   <span class="fu">ggplot</span>(<span class="no">line_df</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">year</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lifeExp</span>)) +
   <span class="fu">geom_line</span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>) +
@@ -187,11 +187,11 @@
 <div id="make-a-line-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#make-a-line-chart" class="anchor"></a>Make a line chart</h2>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co">#Prepare data</span>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># Prepare data</span>
 <span class="no">line_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">country</span> <span class="kw">==</span> <span class="st">"China"</span>)
 
-<span class="co">#Make plot</span>
+<span class="co"># Make plot</span>
 <span class="no">line</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">line_df</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">year</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lifeExp</span>)) +
   <span class="fu">geom_line</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#1380A1"</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>) +
   <span class="fu">labs</span>(<span class="kw">title</span><span class="kw">=</span><span class="st">"Living longer"</span>,
@@ -203,11 +203,11 @@
 <div id="make-a-multiple-line-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#make-a-multiple-line-chart" class="anchor"></a>Make a multiple line chart</h2>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co">#Prepare data</span>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="co"># Prepare data</span>
 <span class="no">multiple_line_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">country</span> <span class="kw">==</span> <span class="st">"China"</span> <span class="kw">|</span> <span class="no">country</span> <span class="kw">==</span> <span class="st">"United States"</span>)
 
-<span class="co">#Make plot</span>
+<span class="co"># Make plot</span>
 <span class="no">multiple_line</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">multiple_line_df</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">year</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lifeExp</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="no">country</span>)) +
   <span class="fu">geom_line</span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>) +
   <span class="fu">labs</span>(<span class="kw">title</span><span class="kw">=</span><span class="st">"Living longer"</span>,
@@ -221,13 +221,13 @@
 <div id="make-a-bar-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#make-a-bar-chart" class="anchor"></a>Make a bar chart</h2>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co">#Prepare data</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># Prepare data</span>
 <span class="no">bar_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">year</span> <span class="kw">==</span> <span class="fl">2007</span> <span class="kw">&amp;</span> <span class="no">continent</span> <span class="kw">==</span> <span class="st">"Africa"</span>) <span class="kw">%&gt;%</span>
   <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="no">lifeExp</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">5</span>)
 
-<span class="co">#Make plot</span>
+<span class="co"># Make plot</span>
 <span class="no">bars</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">bar_df</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">country</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lifeExp</span>)) +
   <span class="fu">geom_bar</span>(<span class="kw">stat</span><span class="kw">=</span><span class="st">"identity"</span>,
            <span class="kw">position</span><span class="kw">=</span><span class="st">"identity"</span>) +
@@ -242,19 +242,19 @@
 <div id="make-a-stacked-bar-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#make-a-stacked-bar-chart" class="anchor"></a>Make a stacked bar chart</h2>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co">#prepare data</span>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># Prepare data</span>
 <span class="no">stacked_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">year</span> <span class="kw">==</span> <span class="fl">2007</span>) <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">lifeExpGrouped</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span>(<span class="no">lifeExp</span>,
-                    <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">80</span>, <span class="fl">90</span>),
-                    <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Under 50"</span>, <span class="st">"50-65"</span>, <span class="st">"65-80"</span>, <span class="st">"80+"</span>))) <span class="kw">%&gt;%</span>
+                              <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">80</span>, <span class="fl">90</span>),
+                              <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Under 50"</span>, <span class="st">"50-65"</span>, <span class="st">"65-80"</span>, <span class="st">"80+"</span>))) <span class="kw">%&gt;%</span>
   <span class="fu">group_by</span>(<span class="no">continent</span>, <span class="no">lifeExpGrouped</span>) <span class="kw">%&gt;%</span>
   <span class="fu">summarise</span>(<span class="kw">continentPop</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">pop</span>)))
 
-<span class="co">#set order of stacks by changing factor levels</span>
+<span class="co"># set order of stacks by changing factor levels</span>
 <span class="no">stacked_df</span>$<span class="no">lifeExpGrouped</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">stacked_df</span>$<span class="no">lifeExpGrouped</span>, <span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(<span class="no">stacked_df</span>$<span class="no">lifeExpGrouped</span>)))
 
-<span class="co">#create plot</span>
+<span class="co"># create plot</span>
 <span class="no">stacked_bars</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">stacked_df</span>,
                        <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">continent</span>,
                            <span class="kw">y</span> <span class="kw">=</span> <span class="no">continentPop</span>,
@@ -277,7 +277,7 @@
 <a href="#make-a-grouped-bar-chart" class="anchor"></a>Make a grouped bar chart</h2>
 <p>Making a grouped bar chart is very similar to making a bar chart.</p>
 <p>You just need to change <code>position = "identity"</code> to <code>position = "dodge"</code>, and set the <code>fill</code> aesthetically instead:</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co">#Prepare data</span>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="co"># Prepare data</span>
 <span class="no">grouped_bar_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">year</span> <span class="kw">==</span> <span class="fl">1967</span> <span class="kw">|</span> <span class="no">year</span> <span class="kw">==</span> <span class="fl">2007</span>) <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(<span class="no">country</span>, <span class="no">year</span>, <span class="no">lifeExp</span>) <span class="kw">%&gt;%</span>
@@ -290,7 +290,7 @@
          -<span class="no">country</span>,
          -<span class="no">gap</span>)
 
-<span class="co">#Make plot</span>
+<span class="co"># Make plot</span>
 <span class="no">grouped_bars</span> <span class="kw">&lt;-</span> <span class="fu">ggplot</span>(<span class="no">grouped_bar_df</span>,
                        <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">country</span>,
                            <span class="kw">y</span> <span class="kw">=</span> <span class="no">lifeExp</span>,
@@ -320,7 +320,7 @@
 ##   grobY.absoluteGrob      ggplot2</code></pre>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"tidyr"</span>)
 
-<span class="co">#Prepare data</span>
+<span class="co"># Prepare data</span>
 <span class="no">dumbbell_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">year</span> <span class="kw">==</span> <span class="fl">1967</span> <span class="kw">|</span> <span class="no">year</span> <span class="kw">==</span> <span class="fl">2007</span>) <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(<span class="no">country</span>, <span class="no">year</span>, <span class="no">lifeExp</span>) <span class="kw">%&gt;%</span>
@@ -329,7 +329,7 @@
   <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="no">gap</span>)) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fl">10</span>)
 
-<span class="co">#Make plot</span>
+<span class="co"># Make plot</span>
 <span class="fu">ggplot</span>(<span class="no">dumbbell_df</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">`1967`</span>, <span class="kw">xend</span> <span class="kw">=</span> <span class="no">`2007`</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span>(<span class="no">country</span>, <span class="no">gap</span>), <span class="kw">group</span> <span class="kw">=</span> <span class="no">country</span>)) +
   <span class="fu"><a href="https://rdrr.io/pkg/ggalt/man/geom_dumbbell.html">geom_dumbbell</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#dddddd"</span>,
                 <span class="kw">size</span> <span class="kw">=</span> <span class="fl">3</span>,
@@ -380,13 +380,13 @@
 <p>To be really precise about where we want our legend to go, instead of specifying “right” or “top” to change the general position of where the legend appears in our chart, we can give it specific coordinates.</p>
 <p>For example <code>legend.position=c(0.98,0.1)</code> will move the legend to the bottom right. For reference, c(0,0) is bottom left, c(1,0) is bottom right, c(0,1) is top left and so on). Finding the exact position may involve some trial and error.</p>
 <p>To check the exact position where the legend appears in your finalised plot you will have to check the file that is saved out after you run your <code><a href="../reference/finalise_plot.html">finalise_plot()</a></code> function, as the position will be relevant to the dimensions of the plot.</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r">  <span class="no">multiple_line</span> + <span class="fu">theme</span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.115</span>,<span class="fl">1.05</span>),
+<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">multiple_line</span> + <span class="fu">theme</span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.115</span>,<span class="fl">1.05</span>),
                       <span class="kw">legend.direction</span> <span class="kw">=</span> <span class="st">"horizontal"</span>) +
   <span class="fu">labs</span>(<span class="kw">title</span><span class="kw">=</span><span class="st">"Living longer"</span>,
        <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Life expectancy in China and the US\n"</span>)</pre></body></html></div>
 <p>To get the legend flush against the left side of your chart, it may be easier to set a negative left margin for the legend using <code>legend.margin</code>. The syntax is <code>margin(top, right, bottom, left)</code>.</p>
 <p>You’ll have to experiment to find the correct number to set the margin to for your chart - save it out with <code><a href="../reference/finalise_plot.html">finalise_plot()</a></code> and see how it looks.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r">  + <span class="fu">theme</span>(<span class="kw">legend.margin</span> <span class="kw">=</span> <span class="fu">margin</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, -<span class="fl">200</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb25"><html><body><pre class="r">+ <span class="fu">theme</span>(<span class="kw">legend.margin</span> <span class="kw">=</span> <span class="fu">margin</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, -<span class="fl">200</span>))</pre></body></html></div>
 </div>
 <div id="remove-the-legend-title" class="section level2">
 <h2 class="hasAnchor">
@@ -451,8 +451,8 @@
 <a href="#change-the-axis-text-manually" class="anchor"></a>Change the axis text manually</h2>
 <p>You can change the axis text labels freely with <code>scale_y_continuous</code> or <code>scale_x_continuous</code>:</p>
 <div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">bars</span> <span class="kw">&lt;-</span> <span class="no">bars</span> + <span class="fu">scale_y_continuous</span>(<span class="kw">limits</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">85</span>),
-                   <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">80</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">20</span>),
-                   <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0"</span>,<span class="st">"20"</span>, <span class="st">"40"</span>, <span class="st">"60"</span>, <span class="st">"80 years"</span>))
+                                  <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">80</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fl">20</span>),
+                                  <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"0"</span>,<span class="st">"20"</span>, <span class="st">"40"</span>, <span class="st">"60"</span>, <span class="st">"80 years"</span>))
 
 <span class="no">bars</span></pre></body></html></div>
 <p><img src="graphics_files/figure-html/unnamed-chunk-30-1.png" width="700"></p>
@@ -629,10 +629,10 @@
 <a href="#add-an-arrow" class="anchor"></a>Add an arrow</h2>
 <p>Turning a line into an arrow is fairly straightforward: just add the <code>arrow</code> argument to your <code>geom_segment</code> or <code>geom_curve</code>:</p>
 <div class="sourceCode" id="cb50"><html><body><pre class="r"><span class="no">multiple_line</span> + <span class="fu">geom_curve</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">1979</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">45</span>, <span class="kw">xend</span> <span class="kw">=</span> <span class="fl">1965</span>, <span class="kw">yend</span> <span class="kw">=</span> <span class="fl">43</span>),
-                             <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#555555"</span>,
-                             <span class="kw">size</span><span class="kw">=</span><span class="fl">0.5</span>,
-                             <span class="kw">curvature</span> <span class="kw">=</span> -<span class="fl">0.2</span>,
-                             <span class="kw">arrow</span> <span class="kw">=</span> <span class="fu">arrow</span>(<span class="kw">length</span> <span class="kw">=</span> <span class="fu">unit</span>(<span class="fl">0.03</span>, <span class="st">"npc"</span>)))</pre></body></html></div>
+                           <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#555555"</span>,
+                           <span class="kw">size</span><span class="kw">=</span><span class="fl">0.5</span>,
+                           <span class="kw">curvature</span> <span class="kw">=</span> -<span class="fl">0.2</span>,
+                           <span class="kw">arrow</span> <span class="kw">=</span> <span class="fu">arrow</span>(<span class="kw">length</span> <span class="kw">=</span> <span class="fu">unit</span>(<span class="fl">0.03</span>, <span class="st">"npc"</span>)))</pre></body></html></div>
 <p><img src="graphics_files/figure-html/unnamed-chunk-45-1.png" width="700"></p>
 <p>The first argument to <code>unit</code> sets the size of the arrowhead.</p>
 </div>

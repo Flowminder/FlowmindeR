@@ -43,11 +43,11 @@ FlowmindeR::set_fm_style()
 ## A basic chart
 
 ```{r}
-#Data for chart from gapminder package
+# Data for chart from gapminder package
 line_df <- gapminder %>%
   filter(country == "Malawi") 
 
-#Make plot
+# Make plot
 line <- 
   ggplot(line_df, aes(x = year, y = lifeExp)) +
   geom_line(size = 1) +
@@ -112,11 +112,11 @@ finalise_plot(plot_name = line,
 ## Make a line chart
 
 ```{r message = FALSE}
-#Prepare data
+# Prepare data
 line_df <- gapminder %>%
   filter(country == "China") 
 
-#Make plot
+# Make plot
 line <- ggplot(line_df, aes(x = year, y = lifeExp)) +
   geom_line(colour = "#1380A1", size = 1) +
   labs(title="Living longer",
@@ -128,11 +128,11 @@ line
 ## Make a multiple line chart
 
 ```{r}
-#Prepare data
+# Prepare data
 multiple_line_df <- gapminder %>%
   filter(country == "China" | country == "United States") 
 
-#Make plot
+# Make plot
 multiple_line <- ggplot(multiple_line_df, aes(x = year, y = lifeExp, colour = country)) +
   geom_line(size = 1) +
   labs(title="Living longer",
@@ -146,13 +146,13 @@ multiple_line
 ## Make a bar chart
 
 ```{r}
-#Prepare data
+# Prepare data
 bar_df <- gapminder %>%
   filter(year == 2007 & continent == "Africa") %>%
   arrange(desc(lifeExp)) %>%
   head(5)
 
-#Make plot
+# Make plot
 bars <- ggplot(bar_df, aes(x = country, y = lifeExp)) +
   geom_bar(stat="identity", 
            position="identity") +
@@ -167,20 +167,19 @@ bars
 ## Make a stacked bar chart
 
 ```{r}
-
-#prepare data
+# Prepare data
 stacked_df <- gapminder %>% 
   filter(year == 2007) %>%
   mutate(lifeExpGrouped = cut(lifeExp, 
-                    breaks = c(0, 50, 65, 80, 90),
-                    labels = c("Under 50", "50-65", "65-80", "80+"))) %>%
+                              breaks = c(0, 50, 65, 80, 90),
+                              labels = c("Under 50", "50-65", "65-80", "80+"))) %>%
   group_by(continent, lifeExpGrouped) %>%
   summarise(continentPop = sum(as.numeric(pop)))
 
-#set order of stacks by changing factor levels
+# set order of stacks by changing factor levels
 stacked_df$lifeExpGrouped = factor(stacked_df$lifeExpGrouped, levels = rev(levels(stacked_df$lifeExpGrouped)))
 
-#create plot
+# create plot
 stacked_bars <- ggplot(data = stacked_df, 
                        aes(x = continent,
                            y = continentPop,
@@ -208,7 +207,7 @@ Making a grouped bar chart is very similar to making a bar chart.
 You just need to change `position = "identity"` to `position = "dodge"`, and set the `fill` aesthetically instead:
 
 ```{r}
-#Prepare data
+# Prepare data
 grouped_bar_df <- gapminder %>%
   filter(year == 1967 | year == 2007) %>%
   select(country, year, lifeExp) %>%
@@ -220,8 +219,8 @@ grouped_bar_df <- gapminder %>%
          value = lifeExp,
          -country,
          -gap) 
-  
-#Make plot
+
+# Make plot
 grouped_bars <- ggplot(grouped_bar_df, 
                        aes(x = country, 
                            y = lifeExp, 
@@ -248,7 +247,7 @@ Another way of showing difference is a dumbbell chart:
 library("ggalt")
 library("tidyr")
 
-#Prepare data
+# Prepare data
 dumbbell_df <- gapminder %>%
   filter(year == 1967 | year == 2007) %>%
   select(country, year, lifeExp) %>%
@@ -257,7 +256,7 @@ dumbbell_df <- gapminder %>%
   arrange(desc(gap)) %>%
   head(10)
 
-#Make plot
+# Make plot
 ggplot(dumbbell_df, aes(x = `1967`, xend = `2007`, y = reorder(country, gap), group = country)) + 
   geom_dumbbell(colour = "#dddddd",
                 size = 3,
@@ -319,7 +318,7 @@ For example `legend.position=c(0.98,0.1)` will move the legend to the bottom rig
 To check the exact position where the legend appears in your finalised plot you will have to check the file that is saved out after you run your `finalise_plot()` function, as the position will be relevant to the dimensions of the plot.
 
 ```{r eval=FALSE}
-  multiple_line + theme(legend.position = c(0.115,1.05),
+multiple_line + theme(legend.position = c(0.115,1.05),
                       legend.direction = "horizontal") +  
   labs(title="Living longer",
        subtitle = "Life expectancy in China and the US\n")
@@ -331,7 +330,7 @@ To get the legend flush against the left side of your chart, it may be easier to
 You'll have to experiment to find the correct number to set the margin to for your chart - save it out with `finalise_plot()` and see how it looks.
 
 ```{r eval=FALSE}
-  + theme(legend.margin = margin(0, 0, 0, -200))
++ theme(legend.margin = margin(0, 0, 0, -200))
 ```
 
 ## Remove the legend title
@@ -422,8 +421,8 @@ You can change the axis text labels freely with `scale_y_continuous` or `scale_x
 
 ```{r}
 bars <- bars + scale_y_continuous(limits=c(0,85),
-                   breaks = seq(0, 80, by = 20),
-                   labels = c("0","20", "40", "60", "80 years"))
+                                  breaks = seq(0, 80, by = 20),
+                                  labels = c("0","20", "40", "60", "80 years"))
 
 bars
 ```
@@ -633,10 +632,10 @@ Turning a line into an arrow is fairly straightforward: just add the `arrow` arg
 
 ```{r}
 multiple_line + geom_curve(aes(x = 1979, y = 45, xend = 1965, yend = 43), 
-                             colour = "#555555", 
-                             size=0.5, 
-                             curvature = -0.2,
-                             arrow = arrow(length = unit(0.03, "npc")))
+                           colour = "#555555", 
+                           size=0.5, 
+                           curvature = -0.2,
+                           arrow = arrow(length = unit(0.03, "npc")))
 ```
 
 The first argument to `unit` sets the size of the arrowhead. 
