@@ -1,76 +1,48 @@
 ---
-title: "Flowminder Visual and Data cookbook for R graphics"
+title: "Graphs and Data cookbook for R"
 date: "Last updated: `r format(Sys.Date())`"
-output: 
-  html_document:
-    toc: true
-    toc_depth: 4
-    toc_float: true
-    theme: cosmo
-    
 ---
 
 ```{r setup, include = F}
 library(FlowmindeR)
 ```
 
-## How to create Flowminder style graphics
+# About
 
-At the BBC data team, we have developed an R package and an R cookbook to make the process of creating publication-ready graphics in our in-house style using R's ggplot2 library a more reproducible process, as well as making it easier for people new to R to create graphics. 
+This document along with the **FlowmindeR** package is designed to help simplify the creation of consistent, publication-ready graphics. This is built around the **ggplot2** R library. This document is shamelessly adpated from the [BBC style guide](https://bbc.github.io/rcookbook/). 
 
-We'll get to how you can put together the various elements of these graphics, but **let's get the admin out of the way first...**
+This acts as a brief tutorial to some of the most common types of graphs we may want to produce. If you are completely new to R or ggplot and wanting some good background reading, I would recommend reviewing:
 
-This document is shamelessly adpated from the BBC style guide: https://bbc.github.io/rcookbook/
+- [R for Data Science](https://r4ds.had.co.nz/): comprehensive book explaining the data workflow in R. [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) covers the use of ggplot
+- [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/): book in development
 
-# About the style
+# Getting Started
 
-- Title font set to the **Merriweather font**
-- Colour palette
+A few of the steps in this vignette - and to create charts in R in general - require certain packages to be installed and loaded. We will use the **FlowmindeR** package alongside **tidyverse** and **gapminder** (used as example data). If this is your first time using the package, you can install it via GitHub at:
 
-```{r}
-scales::show_col(c("#BDAC90", "#095798", "#FAAD61", "#ADD8A4", "#C11D1D"))
+```{r eval=F}
+remotes::install_github("Flowminder/FlowmindeR", force = T)
 ```
 
-### Load all the libraries you need
-
-A few of the steps in this cookbook - and to create charts in R in general - require certain packages to be installed and loaded. So that you do not have to install and load them one by one, you can use the `p_load` function in the `pacman` package to load them all at once with the following code. 
-
-```{r eval=T}
-#This line of code installs the pacman page if you do not have it installed - if you do, it simply loads the package
+```{r}
 library(FlowmindeR)
 library(tidyverse)
 library(gapminder)
 ```
 
-### Install the bbplot package
+## How does the FlowmindeR package work?
 
-`FlowmindeR` is not on CRAN, so you will have to install it directly from Github using `devtools`. 
+The package has two functions, `set_fm_style()` and `finalise_plot()`.
 
-If you do not have the `devtools` package installed, you will have to run the first line in the code below as well. 
-
-``` {r eval = FALSE}
-# install.packages('devtools')
-remotes::install_local("../", force = T)
-```
-
-For more info on `bbplot` check out the [package's Github repo](https://github.com/bbc/bbplot), but most of the details about how to use the package and its functions are detailed below. 
-
-When you have downloaded the package and successfully installed it you are good to go and create charts. 
-
-### How does the bbplot package work?
-
-The package has two functions, `bbc_style()` and `finalise_plot()`.
-
-`bbc_style()`: has no arguments and is added to the ggplot 'chain' after you have created a plot. What it does is generally makes text size, font and colour, axis lines, axis text, margins and many other standard chart components into BBC style, which has been formulated based on recommendations and feedback from the design team.
-
-Note that colours for lines in the case of a line chart or bars for a bar chart, do not come out of the box from the `bbc_style()` function, but need to be explicitly set in your other standard `ggplot` chart functions.
-
-The code below shows how the `bbc_style()` should be used within standard chart-production workflow. This is an example for a very simple line chart, using data from the `gapminder` package.
+`set_fm_style()`: has no arguments and used to set the default ggplot themes. What it does is generally makes text size, font and colour, axis lines, axis text and many other standard chart components into the Flowminder style.  The function is pretty basic and does not change or adapt based on the type of chart you are making, so in some cases you will need to make additional `theme` arguments in your ggplot chain if you want to make any additions or changes to the style, for example to add or remove gridlines etc. You will only need to set the theme once at the start of your script:
 
 ```{r message = FALSE, warning = FALSE}
-
 FlowmindeR::set_fm_style()
+```
 
+## A basic chart
+
+```{r}
 #Data for chart from gapminder package
 line_df <- gapminder %>%
   filter(country == "Malawi") 
@@ -87,7 +59,6 @@ line <-
 line
 ```
 
-
 You can modify these settings for your chart, or add additional theme arguments, by calling the `theme` function with the arguments you want. There are many similar examples throughout the cookbook.
 
 ```{r eval=FALSE}
@@ -98,7 +69,7 @@ line +
 
 ### Save out your finished chart
 
- `finalise_plot()`, the second function of the `FlowmindeR` package, will left-align the title, subtitle and add the footer with a source and an image in the bottom right corner of your plot. It will also save it to your specified location. The function has five arguments:
+`finalise_plot()`, the second function of the `FlowmindeR` package, will left-align the title, subtitle and add the footer with a source and an image in the bottom right corner of your plot. It will also save it to your specified location. The function has five arguments:
 
 Here are the function arguments:
 `finalise_plot(plot_name, source, save_filepath, width_pixels = 640, height_pixels = 450)`
@@ -110,7 +81,7 @@ Here are the function arguments:
 * `height_pixels`: this is set to 450px by default, so only call this argument if you want the chart to have a different height, and specify what you want it to be. 
 * `logo_image_path`: this argument specifies the path for the image/logo in the bottom right corner of the plot. The default is for a placeholder PNG file with a background that matches the background colour of the plot, so do not specify the argument if you want it to appear without a logo. If you want to add your own logo, just specify the path to your PNG file. The package has been prepared with a wide and thin image in mind. 
 
-Example of how the `finalise_plot()` is used in a standard workflow. This function is called once you have created and finalised your chart data, titles and added the `bbc_style()` to it:
+Example of how the `finalise_plot()` is used in a standard workflow. This function is called once you have created and finalised your chart data:
 
 ``` {r eval = FALSE}
 finalise_plot(plot_name = line,
@@ -124,7 +95,7 @@ So once you have created your plot and are relatively happy with it, you can use
 
 It is important to mention that it is a good idea to do this early on because the position of the text and other elements do not render accurately in the RStudio Plots panel because this depends on the size and aspect ratio you want your plot to appear, so saving it out and opening up the files give you an accurate representation of how the graphic looks.
 
-The finalise_plot() function does more than just save out your chart, it also left-aligns the title and subtitle as is standard for BBC graphics, adds a footer with the logo on the right side and lets you input source text on the left side.
+The `finalise_plot()` function does more than just save out your chart, it also left-aligns the title and subtitle as is standard for BBC graphics, adds a footer with the logo on the right side and lets you input source text on the left side.
 
 So how can you save out the example plot created above?
 
@@ -136,7 +107,7 @@ finalise_plot(plot_name = line,
               height_pixels = 550)
 ```
 
-***
+# Types of Charts
 
 ## Make a line chart
 
@@ -148,14 +119,12 @@ line_df <- gapminder %>%
 #Make plot
 line <- ggplot(line_df, aes(x = year, y = lifeExp)) +
   geom_line(colour = "#1380A1", size = 1) +
-  geom_hline(yintercept = 0, size = 1, colour="#333333") +
   labs(title="Living longer",
-       subtitle = "Life expectancy in China 1952-2007") +
-  theme(panel.grid.major.x = element_line(color="pink"), 
-        panel.grid.major.y=element_blank())
+       subtitle = "Life expectancy in China 1952-2007")
 
 line
 ```
+
 ## Make a multiple line chart
 
 ```{r}
@@ -174,11 +143,6 @@ multiple_line <- ggplot(multiple_line_df, aes(x = year, y = lifeExp, colour = co
 multiple_line
 ```
 
-
-```{r echo=FALSE}
-plot(multiple_line)
-```
-
 ## Make a bar chart
 
 ```{r}
@@ -191,8 +155,7 @@ bar_df <- gapminder %>%
 #Make plot
 bars <- ggplot(bar_df, aes(x = country, y = lifeExp)) +
   geom_bar(stat="identity", 
-           position="identity", 
-           fill="#1380A1") +
+           position="identity") +
   labs(title="Reunion is highest",
        subtitle = "Highest African life expectancy, 2007",
        x = "Country",
@@ -313,7 +276,7 @@ hist_df <- gapminder %>%
   filter(year == 2007)
 
 ggplot(hist_df, aes(lifeExp)) +
-  geom_histogram(binwidth = 5, colour = "white", fill = "#1380A1") +
+  geom_histogram(binwidth = 5, colour = "white") +
   scale_x_continuous(limits = c(35, 95),
                      breaks = seq(40, 90, by = 10),
                      labels = c("40", "50", "60", "70", "80", "90 years")) +
@@ -323,9 +286,9 @@ ggplot(hist_df, aes(lifeExp)) +
 
 -----------------------------
 
-##Make changes to the legend
+# Tweaking Graphs
 
-###Remove the legend
+## Remove the legend
 
 Remove the legend to become one - it's better to label data directly with text annotations.
 
@@ -341,7 +304,7 @@ You can also remove all legends in one go using `theme(legend.position = "none")
 multiple_line + theme(legend.position = "none")
 ```
 
-###Change the position of the legend
+## Change the position of the legend
 
 The legend's default position is at the right of your plot. Move it to the left, right or bottom outside the plot with:
 
@@ -371,15 +334,15 @@ You'll have to experiment to find the correct number to set the margin to for yo
   + theme(legend.margin = margin(0, 0, 0, -200))
 ```
 
-###Remove the legend title
+## Remove the legend title
 
-Remove the legend title by tweaking your `theme()`. Don't forget that for any changes to the theme to work, they must be added after you've called `bbc_style()`!
+Remove the legend title by tweaking your `theme()`:
 
 ```{r eval = FALSE}
 + theme(legend.title = element_blank())
 ```
 
-###Reverse the order of your legend
+## Reverse the order of your legend
 
 Sometimes you need to change the order of your legend for it to match the order of your bars. For this, you need `guides`:
 
@@ -387,7 +350,7 @@ Sometimes you need to change the order of your legend for it to match the order 
 + guides(fill = guide_legend(reverse = TRUE))
 ```
 
-###Rearrange the layout of your legend
+## Rearrange the layout of your legend
 
 If you've got many values in your legend, you may need to rearrange the layout for aesthetic reasons. 
 
@@ -399,7 +362,7 @@ You can specify the number of rows you want your legend to have as an argument t
 
 You may need to change `fill` in the code above to whatever aesthetic your legend is describing, e.g. `size`, `colour`, etc.
 
-###Change the appearance of your legend symbols
+## Change the appearance of your legend symbols
 
 You can override the default appearance of the legend symbols, without changing the way they appear in the plot, by adding the argument `override.aes` to `guides`. 
 
@@ -409,7 +372,7 @@ The below will make the size of the legend symbols larger, for instance:
 + guides(fill = guide_legend(override.aes = list(size = 4))))
 ```
 
-###Add space between your legend labels
+## Add space between your legend labels
 
 The default ggplot legend has almost no space between individual legend items. Not ideal.
 
@@ -423,9 +386,9 @@ For instance, if you have set the colour of your geoms to be dependent on your d
 
 If your legend is showing something different, you will need to change the code accordingly. For instance, for fill, you will need `scale_fill_manual()` instead. 
 
-##Make changes to the axes
+# Make changes to the axes
 
-###Flip the coordinates of a plot
+## Flip the coordinates of a plot
 
 Add `coord_flip()` to make your vertical bars horizontal:
 
@@ -437,7 +400,7 @@ bars <- bars + coord_flip()
 plot(bars)
 ```
 
-###Add/remove gridlines
+## Add/remove gridlines
 
 The default theme only has gridlines for the y axis. Add x gridlines with `panel.grid.major.x = element_line`. 
 
@@ -453,7 +416,7 @@ bars <- bars + coord_flip() +
 plot(bars)
 ```
 
-###Change the axis text manually
+## Change the axis text manually
 
 You can change the axis text labels freely with `scale_y_continuous` or `scale_x_continuous`:
 
@@ -467,7 +430,7 @@ bars
 
 This will also specify the limits of your plot as well as where you want axis ticks.
 
-###Add thousand separators to your axis labels
+## Add thousand separators to your axis labels
 
 You can specify that you want your axis text to have thousand separators with an argument to `scale_y_continuous`. 
 
@@ -484,7 +447,7 @@ The second way relies on the `scales` package, but is much more concise:
 + scale_y_continuous(labels = scales::comma)
 ```
 
-###Add percent symbol to your axis labels
+## Add percent symbol to your axis labels
 
 This is also easy to add with an argument to `scale_y_continuous`:
 
@@ -492,7 +455,7 @@ This is also easy to add with an argument to `scale_y_continuous`:
 + scale_y_continuous(labels = function(x) paste0(x, "%"))
 ```
 
-###Change the plot limits
+## Change the plot limits
 
 The long way of setting the limits of your plot explicitly is with `scale_y_continuous` as above. But if you don't need to specify the breaks or labels the shorthand way of doing it is with `xlim` or `ylim`:
 
@@ -500,15 +463,15 @@ The long way of setting the limits of your plot explicitly is with `scale_y_cont
 bars + ylim(c(0,500))
 ```
 
-###Add axis titles
+## Add axis titles
 
-Our default theme has no axis titles, but you may wish to add them in manually. This is done by modifying `theme()` - note that you must do this after the call to `bbc_style()` or your changes will be overridden:
+Our default theme has no axis titles, but you may wish to add them in manually. This is done by modifying `theme()`:
 
 ```{r eval = FALSE}
 + theme(axis.title = element_text(size = 18))
 ```
 
-###Modify axis titles
+## Modify axis titles
 
 If you add in axis titles, they will by default be the column names in your dataset. You can change this to anything you want in your call to `labs()`. 
 
@@ -519,7 +482,7 @@ For instance, if you wish your x axis title to be "I'm an axis" and your y axis 
        y = "")
 ```
 
-###Add axis ticks
+## Add axis ticks
 
 You can add axis tick marks by adding `axis.ticks.x` or `axis.ticks.y` to your `theme`:
 
@@ -529,9 +492,9 @@ multiple_line + theme(
   axis.ticks.length =  unit(0.26, "cm"))
 ```
 
-##Add annotations
+# Add annotations
 
-###Add an annotation
+## Add an annotation
 
 The easiest way to add a text annotation to your plot is using `geom_label`: 
 
@@ -573,7 +536,7 @@ multiple_line <- multiple_line +
              hjust = 0, 
              vjust = 0.5, 
              colour = "#1380A1", 
-             fill = "white", 
+             fill = NA, 
              label.size = NA, 
              size = 6) +
   geom_label(aes(x = 2007, y = 72, label = "China"), 
@@ -587,11 +550,11 @@ multiple_line <- multiple_line +
 plot(multiple_line)
 ```
 
-###Left-align/right-align text
+## Left-align/right-align text
 
 The arguments `hjust` and `vjust` dictate horizontal and vertical text alignment. They can have a value between 0 and 1, where 0 is left-justified and 1 is right-justified (or bottom- and top-justified for vertical alignment).
 
-### Add labels based on your data
+## Add labels based on your data
 
 The above method for adding annotations to your chart lets you specify the x and y coordinates exactly. This is very useful if we want to add a text annotation in a specific place, but would be very tedious to repeat. 
 
@@ -615,9 +578,9 @@ labelled.bars
 
 The above code automatically adds one text label for each continent, without us having to add `geom_label` five separate times. 
 
-(If you're confused about why we're setting the `x` as the continents and `y` as life expectancy, when the chart appears to be drawing them the other way around, it's because we've flipped the coordinates of the plot using `coord_flip()`, which you can [read more about here](https://github.com/bbc/vjdata.rcookbook#flip-the-coordinates-of-a-plot).)
+(If you're confused about why we're setting the `x` as the continents and `y` as life expectancy, when the chart appears to be drawing them the other way around, it's because we've flipped the coordinates of the plot using `coord_flip()`, which you can [read more about here](https://ggplot2.tidyverse.org/reference/coord_flip.html).)
 
-### Add left-aligned labels to bar charts
+## Add left-aligned labels to bar charts
 
 If you'd rather add left-aligned labels for your bars, just set the `x` argument based on your data, but specify the `y` argument directly instead, with a numeric value. 
 
@@ -639,7 +602,7 @@ labelled.bars.v2 <- bars +
 labelled.bars.v2
 ```
 
-###Add a line
+## Add a line
 
 Add a line with `geom_segment`:
 
@@ -651,7 +614,7 @@ multiple_line + geom_segment(aes(x = 1979, y = 45, xend = 1965, yend = 43),
 
 The `size` argument specifies the thickness of the line. 
 
-###Add a curved line
+## Add a curved line
 
 For a curved line, use `geom_curve` instead of `geom_segment`:
 
@@ -664,7 +627,7 @@ multiple_line + geom_curve(aes(x = 1979, y = 45, xend = 1965, yend = 43),
 
 The `curvature` argument sets the amount of curve: 0 is a straight line, negative values give a left-hand curve and positive values give a right-hand curve.
 
-###Add an arrow
+## Add an arrow
 
 Turning a line into an arrow is fairly straightforward: just add the `arrow` argument to your `geom_segment` or `geom_curve`:
 
@@ -678,7 +641,7 @@ multiple_line + geom_curve(aes(x = 1979, y = 45, xend = 1965, yend = 43),
 
 The first argument to `unit` sets the size of the arrowhead. 
 
-###Add a line across the whole plot
+## Add a line across the whole plot
 
 The easiest way to add a line across the whole plot is with `geom_vline()`, for a vertical line, or `geom_hline()`, for a horizontal one. 
 
@@ -696,11 +659,11 @@ It's also especially useful because our design style - as you may already have n
 + geom_hline(yintercept = 0, size = 1, colour = "#333333")
 ```
 
-##Work with small multiples
+# Work with small multiples
 
 Small multiple charts are easy to create with ggplot: it's called faceting.
 
-###Facets
+## Facets
 
 If you have data that you want to visualise split up by some variable, you need to use `facet_wrap` or `facet_grid`. 
 
@@ -732,7 +695,7 @@ facet_plot <- ggplot() +
 plot(facet_plot)
 ```
 
-###Free scales
+## Free scales
 
 You may have noticed in the chart above that Oceania, with its relatively small population, has disappeared completely. 
 
@@ -756,9 +719,9 @@ facet_plot_free <- ggplot() +
 plot(facet_plot_free)
 ```
 
-##Do something else entirely
+# Do something else entirely
 
-###Increase or decrease margins
+## Increase or decrease margins
 
 You can change the margin around almost any element of your plot - the title, subtitles, legend - or the plot itself. 
 
@@ -772,7 +735,7 @@ bars + theme(plot.subtitle=element_text(margin=margin(b=75)))
 
 Hm... maybe not. 
 
-###Exporting your plot and x-axis margins
+## Exporting your plot and x-axis margins
 
 You do need to think about your x-axis margin sizes when you are producing a plot that is beyond the default height in `bbplot`, which is 450px. This could be the case for example if you are creating a bar chart with lots of bars and want to make sure there is some breathing space between each bar and labels. If you do leave the margins as they are for plots with a greater height, then you could get a larger gap between the axis and your labels.
 
@@ -796,7 +759,7 @@ bar_chart_tall
 
 Although it is much less likely, but if you do want to do the equivalent for a line chart and export it at a larger than default height, you need to do the same but change your values for t to negative values based on the table above. 
 
-###Reorder bars by size
+## Reorder bars by size
 
 By default, R will display your data in alphabetical order, but arranging it by size instead is simple: just wrap `reorder()` around the `x` or `y` variable you want to rearrange, and specify which variable you want to reorder it by. 
 
@@ -814,7 +777,7 @@ bars <- ggplot(bar_df, aes(x = reorder(country, lifeExp), y = lifeExp)) +
 plot(bars)
 ```
 
-###Reorder bars manually
+## Reorder bars manually
 
 Sometimes you need to order your data in a way that isn't alphabetical or reordered by size. 
 
@@ -828,7 +791,7 @@ dataset$column <- factor(dataset$column, levels = c("18-24","25-64","65+"))
 
 You can also use this to reorder the stacks of a stacked bar chart. 
 
-###Colour bars conditionally
+## Colour bars conditionally
 
 You can set aesthetic values like fill, alpha, size conditionally with `ifelse()`. 
 

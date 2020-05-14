@@ -68,6 +68,12 @@ ggplot(gapminder_2007, aes(x = lifeExp, y = gdpPercap, colour = continent)) +
 
 ### R Markdown Templates
 
+- `fm_pdf`
+- `fm_html`
+
+```{r, echo = F}
+knitr::include_graphics("docs/rmarkdownFormats.png")
+```
 
 ### Basemaps 
 

@@ -2,5 +2,8 @@
 
 export(expand_bbox)
 export(finalise_plot)
+export(fm_html)
 export(fm_mapbox_styles)
+export(fm_pdf)
+export(fm_word)
 export(set_fm_style)

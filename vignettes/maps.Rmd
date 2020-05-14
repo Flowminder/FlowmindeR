@@ -1,0 +1,45 @@
+---
+title: "Maps"
+date: "Last updated: `r format(Sys.Date())`"
+---
+
+
+```{r}
+knitr::opts_chunk$set(out.width = "100%")
+```
+
+
+
+```{r}
+library(tidyverse)
+library(tmap)
+```
+
+# Packages Used
+
+The following packages are recommended:
+
+
+```{r}
+
+```
+
+
+
+# Maps made in plot mode
+
+```{r}
+tmap_mode("plot")
+data(World)
+tm_shape(World) +
+  tm_polygons("HPI")
+```
+# Maps made in view mode
+
+
+```{r}
+tmap_mode("view")
+data(World)
+tm_shape(World) +
+  tm_polygons("HPI", id = "iso_a3", popup.vars = TRUE)
+```

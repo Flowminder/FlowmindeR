@@ -1,0 +1,41 @@
+h1{
+    color: #00000 !important;
+    font-family: Merriweather;
+    font-weight: bold;
+    font-size: 24px
+  }
+
+h2{
+    color: #095798 !important;
+    font-weight: bold;
+    font-size: 20px
+  }
+
+h3{
+    color: #9D8C70 !important;
+    font-weight: bold;
+    font-size: 19px
+  }
+
+h4, h5, h6{
+    color: #9d8c70 !important;
+    font-weight: bold;
+    font-size: 15px
+  }
+
+body{
+  font-family: Lato
+}
+
+
+
+a:link {
+    color: #9D8C70;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #212121;
+    background-color: #2977B8;
+    border-color: #BDAC90;
+}
