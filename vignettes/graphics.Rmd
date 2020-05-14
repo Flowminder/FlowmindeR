@@ -1,6 +1,5 @@
 ---
 title: "Graphs and Data cookbook for R"
-date: "Last updated: `r format(Sys.Date())`"
 ---
 
 ```{r setup, include = F}
@@ -145,6 +144,8 @@ multiple_line
 
 ## Make a bar chart
 
+**ggplot** will normally add a space between the plot and the axis. This is normally fine, but with barplots especially it is recommended to remove this gap. This can be done with `scale_y_continuous(expand = expand_scale(mult = c(0, .1)))`:
+
 ```{r}
 # Prepare data
 bar_df <- gapminder %>%
@@ -159,11 +160,11 @@ bars <- ggplot(bar_df, aes(x = country, y = lifeExp)) +
   labs(title="Reunion is highest",
        subtitle = "Highest African life expectancy, 2007",
        x = "Country",
-       y = "Life Expectancy")
+       y = "Life Expectancy") +
+  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
 
 bars
 ```
-
 ## Make a stacked bar chart
 
 ```{r}
@@ -189,22 +190,19 @@ stacked_bars <- ggplot(data = stacked_df,
   scale_y_continuous(labels = scales::percent) +
   labs(title = "How life expectancy varies",
        subtitle = "% of population by life expectancy band, 2007",
-       x = "Continent", y = "Proportion") 
+       x = "Continent",
+       y = "Proportion",
+       fill = "Life Expectancy Grouped")  +
+  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
 
 stacked_bars
 ```
 
-This example shows proportions, but you might want to make a stacked bar chart showing number values instead - this is easy to change!
-
-The value passed to the `position` argument will determine if your stacked chart shows proportions or actual values. 
-
-`position = "fill"` will draw your stacks as proportions, and `position = "identity"` will draw number values. 
+This example shows proportions, but you might want to make a stacked bar chart showing number values instead - this is easy to change! The value passed to the `position` argument will determine if your stacked chart shows proportions or actual values.  `position = "fill"` will draw your stacks as proportions, and `position = "identity"` will draw number values. 
 
 ## Make a grouped bar chart
 
-Making a grouped bar chart is very similar to making a bar chart. 
-
-You just need to change `position = "identity"` to `position = "dodge"`, and set the `fill` aesthetically instead:
+Making a grouped bar chart is very similar to making a bar chart.  You just need to change `position = "identity"` to `position = "dodge"`, and set the `fill` aesthetically instead:
 
 ```{r}
 # Prepare data
@@ -226,26 +224,21 @@ grouped_bars <- ggplot(grouped_bar_df,
                            y = lifeExp, 
                            fill = as.factor(year))) +
   geom_bar(stat="identity", position="dodge") +
-  scale_fill_manual(values = c("#1380A1", "#FAAB18")) +
   labs(title="We're living longer",
        subtitle = "Biggest life expectancy rise, 1967-2007",
        x = "Country",
-       y = "Life Expectancy")
+       y = "Life Expectancy",
+       fill = "Year") +
+  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
 
 grouped_bars
 ```
-
-```{r echo=FALSE}
-plot(grouped_bars)
-```
-
 ## Make a dumbbell chart
 
 Another way of showing difference is a dumbbell chart:
 
 ```{r}
-library("ggalt")
-library("tidyr")
+library(ggalt)
 
 # Prepare data
 dumbbell_df <- gapminder %>%
@@ -280,10 +273,9 @@ ggplot(hist_df, aes(lifeExp)) +
                      breaks = seq(40, 90, by = 10),
                      labels = c("40", "50", "60", "70", "80", "90 years")) +
   labs(title = "How life expectancy varies",
-       subtitle = "Distribution of life expectancy in 2007")
+       subtitle = "Distribution of life expectancy in 2007") +
+  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
 ```
-
------------------------------
 
 # Tweaking Graphs
 
@@ -392,11 +384,12 @@ If your legend is showing something different, you will need to change the code 
 Add `coord_flip()` to make your vertical bars horizontal:
 
 ```{r}
-bars <- bars + coord_flip()
-```
+bars <- bars + 
+  coord_flip() +
+  scale_y_continuous(expand = expand_scale(mult = c(0, .1))) +
+  scale_x_discrete()
 
-```{r echo=FALSE}
-plot(bars)
+bars
 ```
 
 ## Add/remove gridlines
@@ -409,10 +402,8 @@ The default theme only has gridlines for the y axis. Add x gridlines with `panel
 bars <- bars + coord_flip() +
   theme(panel.grid.major.x = element_line(color="#cbcbcb"), 
         panel.grid.major.y=element_blank())
-```
 
-```{r echo=FALSE}
-plot(bars)
+bars
 ```
 
 ## Change the axis text manually
@@ -680,18 +671,15 @@ facet <- gapminder %>%
 #Make plot
 facet_plot <- ggplot() +
   geom_area(data = facet, aes(x = year, y = pop, fill = continent)) +
-  scale_fill_manual(values = c("#FAAB18", "#1380A1","#990000", "#588300")) + 
   facet_wrap( ~ continent, ncol = 5) + 
   scale_y_continuous(breaks = c(0, 2000000000, 4000000000),
                      labels = c(0, "2bn", "4bn")) +
-  geom_hline(yintercept = 0, size = 1, colour = "#333333") +
   theme(legend.position = "none",
         axis.text.x = element_blank()) +
   labs(title = "Asia's rapid growth",
        subtitle = "Population growth by continent, 1952-2007")
 
-
-plot(facet_plot)
+facet_plot
 ```
 
 ## Free scales
@@ -707,7 +695,6 @@ If you just want to free the scales for one axis set the argument to `free_x` or
 facet_plot_free <- ggplot() +
   geom_area(data = facet, aes(x = year, y = pop, fill = continent)) +
   facet_wrap(~ continent, scales = "free") + 
-  scale_fill_manual(values = c("#FAAB18", "#1380A1","#990000", "#588300")) +
   geom_hline(yintercept = 0, size = 1, colour = "#333333") +
   theme(legend.position = "none",
         axis.text.x = element_blank(),
@@ -715,7 +702,7 @@ facet_plot_free <- ggplot() +
   labs(title = "It's all relative",
        subtitle = "Relative population growth by continent,1952-2007")
 
-plot(facet_plot_free)
+facet_plot_free
 ```
 
 # Do something else entirely

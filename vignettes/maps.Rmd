@@ -1,8 +1,6 @@
 ---
 title: "Maps"
-date: "Last updated: `r format(Sys.Date())`"
 ---
-
 
 ```{r}
 knitr::opts_chunk$set(out.width = "100%")
