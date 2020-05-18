@@ -117,7 +117,7 @@ line_df <- gapminder %>%
 
 # Make plot
 line <- ggplot(line_df, aes(x = year, y = lifeExp)) +
-  geom_line(colour = "#1380A1", size = 1) +
+  geom_line(size = 1) +
   labs(title="Living longer",
        subtitle = "Life expectancy in China 1952-2007")
 
@@ -753,7 +753,7 @@ E.g. `x = reorder(country, pop)`. Ascending order is the default, but you can ch
 
 ```{r}
 bars <- ggplot(bar_df, aes(x = reorder(country, lifeExp), y = lifeExp)) +
-  geom_bar(stat="identity", position="identity", fill="#1380A1") +
+  geom_bar(stat="identity", position="identity") +
   coord_flip() +
   labs(title="Reunion is highest",
        subtitle = "Highest African life expectancy, 2007") +
