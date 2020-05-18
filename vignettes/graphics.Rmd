@@ -165,6 +165,7 @@ bars <- ggplot(bar_df, aes(x = country, y = lifeExp)) +
 
 bars
 ```
+
 ## Make a stacked bar chart
 
 ```{r}
@@ -253,8 +254,8 @@ dumbbell_df <- gapminder %>%
 ggplot(dumbbell_df, aes(x = `1967`, xend = `2007`, y = reorder(country, gap), group = country)) + 
   geom_dumbbell(colour = "#dddddd",
                 size = 3,
-                colour_x = "#FAAB18",
-                colour_xend = "#1380A1") +
+                colour_x = "#095798",
+                colour_xend = "#9D8C70") +
   labs(title="We're living longer",
        subtitle="Biggest life expectancy rise, 1967-2007",
        x = "Age",
@@ -532,7 +533,7 @@ multiple_line <- multiple_line +
   geom_label(aes(x = 2007, y = 72, label = "China"), 
              hjust = 0, 
              vjust = 0.5, 
-             colour = "#FAAB18", 
+             colour = "#095798", 
              fill = NA, 
              label.size = NA, 
              size = 6)

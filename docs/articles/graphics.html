@@ -245,7 +245,11 @@
   <span class="fu">scale_y_continuous</span>(<span class="kw">expand</span> <span class="kw">=</span> <span class="fu">expand_scale</span>(<span class="kw">mult</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">.1</span>)))</pre></body></html></div>
 <pre><code>## Warning: `expand_scale()` is deprecated; use `expansion()` instead.</code></pre>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">bars</span></pre></body></html></div>
-<p><img src="graphics_files/figure-html/unnamed-chunk-10-1.png" width="700"> ## Make a stacked bar chart</p>
+<p><img src="graphics_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+</div>
+<div id="make-a-stacked-bar-chart" class="section level2">
+<h2 class="hasAnchor">
+<a href="#make-a-stacked-bar-chart" class="anchor"></a>Make a stacked bar chart</h2>
 <div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="co"># Prepare data</span>
 <span class="no">stacked_df</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">year</span> <span class="kw">==</span> <span class="fl">2007</span>) <span class="kw">%&gt;%</span>
@@ -333,8 +337,8 @@
 <span class="fu">ggplot</span>(<span class="no">dumbbell_df</span>, <span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">`1967`</span>, <span class="kw">xend</span> <span class="kw">=</span> <span class="no">`2007`</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html">reorder</a></span>(<span class="no">country</span>, <span class="no">gap</span>), <span class="kw">group</span> <span class="kw">=</span> <span class="no">country</span>)) +
   <span class="fu"><a href="https://rdrr.io/pkg/ggalt/man/geom_dumbbell.html">geom_dumbbell</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#dddddd"</span>,
                 <span class="kw">size</span> <span class="kw">=</span> <span class="fl">3</span>,
-                <span class="kw">colour_x</span> <span class="kw">=</span> <span class="st">"#FAAB18"</span>,
-                <span class="kw">colour_xend</span> <span class="kw">=</span> <span class="st">"#1380A1"</span>) +
+                <span class="kw">colour_x</span> <span class="kw">=</span> <span class="st">"#095798"</span>,
+                <span class="kw">colour_xend</span> <span class="kw">=</span> <span class="st">"#9D8C70"</span>) +
   <span class="fu">labs</span>(<span class="kw">title</span><span class="kw">=</span><span class="st">"We're living longer"</span>,
        <span class="kw">subtitle</span><span class="kw">=</span><span class="st">"Biggest life expectancy rise, 1967-2007"</span>,
        <span class="kw">x</span> <span class="kw">=</span> <span class="st">"Age"</span>,
@@ -558,7 +562,7 @@
   <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="kw">x</span> <span class="kw">=</span> <span class="fl">2007</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="fl">72</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="st">"China"</span>),
              <span class="kw">hjust</span> <span class="kw">=</span> <span class="fl">0</span>,
              <span class="kw">vjust</span> <span class="kw">=</span> <span class="fl">0.5</span>,
-             <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#FAAB18"</span>,
+             <span class="kw">colour</span> <span class="kw">=</span> <span class="st">"#095798"</span>,
              <span class="kw">fill</span> <span class="kw">=</span> <span class="fl">NA</span>,
              <span class="kw">label.size</span> <span class="kw">=</span> <span class="fl">NA</span>,
              <span class="kw">size</span> <span class="kw">=</span> <span class="fl">6</span>)
