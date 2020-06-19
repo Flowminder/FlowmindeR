@@ -3,21 +3,20 @@
 
 ## FlowmindeR
 
-This repo contains the functions of the `FlwomindeR` package, which once
-installed locally, provides helpful functions for creating and exporting
-graphics made in ggplot which match the Flowminder style guide.
+This repo contains the functions of the `FlowmindeR` package, the
+package provides:
 
-  - Styling for producing graphs in `ggplot`
+  - A ggplot style for producing Flowminder graphics for producing
+    graphs in `ggplot`
   - R Markdown templates to produce branded PDF and HTML documents
   - Convenient links to use Flowminder themed from Mapbox
 
 ## Installing FlowmindeR
 
 `FlowmindeR` is not on CRAN, so you will have to install it directly
-from Github using `remotes`.
-
-If you do not have the `remotes` package installed, you will have to run
-the first line in the code below as well.
+from Github using `remotes`. If you do not have the `remotes` package
+installed, you will have to run the first line in the code below as
+well.
 
 ``` r
 # install.packages('remotes')
@@ -76,18 +75,12 @@ ggplot(gapminder_2007, aes(x = lifeExp, y = gdpPercap, colour = continent)) +
 
 ![](man/figures/README-unnamed-chunk-3-1.png)<!-- -->
 
-``` r
-
-gapminderTime <- gapminder %>%
-  filter(country %in% c("Nigeria", "Kenya", "Mozambique"))
-
-ggplot(gapminderTime, aes(x = year, y = lifeExp, colour = country)) +
-  geom_line()
-```
-
-![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
-
 ### R Markdown Templates
+
+  - `fm_pdf`
+  - `fm_html`
+
+![](https://flowminder.github.io/FlowmindeR/rmarkdownFormats.png)<!-- -->
 
 ### Basemaps
 

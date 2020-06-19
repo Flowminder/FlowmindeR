@@ -10,6 +10,8 @@
 \usepackage{setspace}
 \usepackage{flafter}
 \usepackage{subfig}
+\usepackage[compact]{titlesec}
+
 
  % Change fonts to Lato
 \usepackage[default]{roboto}
@@ -52,43 +54,19 @@
 \setlength{\parindent}{0em}     % Remove paragraph indents
 %\setcounter{secnumdepth}{0}     % Suppress numbering for each subsection
 
-% Simplify document title
-\makeatletter
-\renewcommand*\maketitle{%
-    \begingroup
-    \fontsize{20}{20} % 72pt on 80pt leading
-    \fontseries{b}% Bold
-    \color{customBlue}
-    \selectfont
-    \setlength{\parindent}{0pc} % Make sure there is no indentation
-    \@title
-    \vspace{5mm}
-\endgroup
-    \begingroup
-    \fontsize{14}{14} % 72pt on 80pt leading
-    \color{customGrey2}
-    \setlength{\parindent}{0pc} % Make sure there is no indentation
-    \setlength{\parskip}{-2mm}
-    \\
-    \textit{\@author} \\
-
-    \textit{\@date} \\
-    \endgroup
-}
-\makeatother
-
 % Change colours of document
 \subsubsectionfont{\color{gray}}
 \subsectionfont{\color{customBrown}}
 \sectionfont{\color{customBlue}}
 
+
+
 % Change bulletpoint style
-\definecolor{orange}{RGB}{226,109,56}
-\newcommand{\localtextbulletone}{\textcolor{orange}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\newcommand{\localtextbulletone}{\textcolor{customBlue}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
 \renewcommand{\labelitemi}{\localtextbulletone}
 
 % Update styles to match guide
-\renewcommand{\emph}[1]{\textit{\textcolor{orange}{#1}}}
+\renewcommand{\emph}[1]{\textit{\textcolor{customBrown}{#1}}}
 
 % create a command answer which provides a line for answers
 \newcommand{\answer}{\hspace{1pt} \rule{40pt}{1pt} \hspace{1pt}}
@@ -154,10 +132,10 @@ boxsep=3mm
 
 % Create the new environments for document
 \newenvironment{tip}
-  {\begin{customBlockImage}[colframe=customGrey]{resources/images/tip}}
+  {\begin{customBlockImage}[colframe=customGrey]{LOCALFILEPATH/images/tip}}
   {\end{customBlockImage}}
 \newenvironment{question}
-  {\begin{customBlockImage}[colframe=customWhite, colback=customWhite]{resources/images/question}}
+  {\begin{customBlockImage}[colframe=customWhite, colback=customWhite]{LOCALFILEPATH/images/question}}
   {\end{customBlockImage}}
 \newenvironment{challenge}
   {\begin{customBlock}}
@@ -166,19 +144,19 @@ boxsep=3mm
   {\begin{quoteBlock}}
   {\end{quoteBlock}}
 \newenvironment{rmdnote}
-  {\begin{customBlockImage}{resources/images/note}}
+  {\begin{customBlockImage}{LOCALFILEPATH/images/note}}
   {\end{customBlockImage}}
 \newenvironment{rmdcaution}
-  {\begin{customBlockImage}{resources/images/caution}}
+  {\begin{customBlockImage}{LOCALFILEPATH/images/caution}}
   {\end{customBlockImage}}
 \newenvironment{rmdimportant}
-  {\begin{customBlockImage}{resources/images/important}}
+  {\begin{customBlockImage}{LOCALFILEPATH/images/important}}
   {\end{customBlockImage}}
 \newenvironment{rmdtip}
-  {\begin{customBlockImage}{resources/images/tip}}
+  {\begin{customBlockImage}{LOCALFILEPATH/images/tip}}
   {\end{customBlockImage}}
 \newenvironment{rmdwarning}
-  {\begin{customBlockImage}{resources/images/warning}}
+  {\begin{customBlockImage}{LOCALFILEPATH/images/warning}}
   {\end{customBlockImage}}
 
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
@@ -186,4 +164,30 @@ boxsep=3mm
 
 \makeatletter
 \global\let\tikz@ensure@dollar@catcode=\relax
+\makeatother
+
+% Simplify document title
+\makeatletter
+\renewcommand*\maketitle{%
+    \begingroup
+    \fontsize{20}{20} % 72pt on 80pt leading
+    \fontseries{b}% Bold
+    \color{customBlue}
+    \selectfont
+    \setlength{\parindent}{0pc} % Make sure there is no indentation
+    \@title
+    \vspace{5mm}
+\endgroup
+    \begingroup
+    \raggedright
+    \fontsize{14}{14} % 72pt on 80pt leading
+    \color{customGrey2}
+    \setlength{\parindent}{0pc} % Make sure there is no indentation
+    \setlength{\parskip}{-2mm}
+    \\
+    \textit{\@author} \\
+    \textit{\@date} \\
+    \vspace{-3ex}
+    \endgroup
+}
 \makeatother

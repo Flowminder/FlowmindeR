@@ -70,7 +70,7 @@ ggplot(gapminder_2007, aes(x = lifeExp, y = gdpPercap, colour = continent)) +
 - `fm_html`
 
 ```{r, echo = F}
-knitr::include_graphics("docs/rmarkdownFormats.png")
+knitr::include_graphics("https://flowminder.github.io/FlowmindeR/rmarkdownFormats.png")
 ```
 
 ### Basemaps 

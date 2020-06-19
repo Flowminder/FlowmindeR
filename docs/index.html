@@ -86,9 +86,9 @@
 <div id="flowminder" class="section level2">
 <h2 class="hasAnchor">
 <a href="#flowminder" class="anchor"></a>FlowmindeR</h2>
-<p>This repo contains the functions of the <code>FlwomindeR</code> package, which once installed locally, provides helpful functions for creating and exporting graphics made in ggplot which match the Flowminder style guide.</p>
+<p>This repo contains the functions of the <code>FlowmindeR</code> package, the package provides:</p>
 <ul>
-<li>Styling for producing graphs in <code>ggplot</code>
+<li>A ggplot style for producing Flowminder graphics for producing graphs in <code>ggplot</code>
 </li>
 <li>R Markdown templates to produce branded PDF and HTML documents</li>
 <li>Convenient links to use Flowminder themed from Mapbox</li>
@@ -97,8 +97,7 @@
 <div id="installing-flowminder" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-flowminder" class="anchor"></a>Installing FlowmindeR</h2>
-<p><code>FlowmindeR</code> is not on CRAN, so you will have to install it directly from Github using <code>remotes</code>.</p>
-<p>If you do not have the <code>remotes</code> package installed, you will have to run the first line in the code below as well.</p>
+<p><code>FlowmindeR</code> is not on CRAN, so you will have to install it directly from Github using <code>remotes</code>. If you do not have the <code>remotes</code> package installed, you will have to run the first line in the code below as well.</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages('remotes')</span>
 <span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'Flowminder/FlowmindeR'</span>)</pre></div>
 </div>
@@ -138,17 +137,15 @@
        <span class="kw">y</span> <span class="kw">=</span> <span class="st">"GDP per Capita\n($/person)"</span>,
        <span class="kw">title</span> <span class="kw">=</span> <span class="st">"GDP vs Life Expectancy"</span>)</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png"><!-- --></p>
-<div class="sourceCode" id="cb3"><pre class="r">
-<span class="no">gapminderTime</span> <span class="kw">&lt;-</span> <span class="no">gapminder</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">country</span> <span class="kw">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Nigeria"</span>, <span class="st">"Kenya"</span>, <span class="st">"Mozambique"</span>))
-
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">gapminderTime</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">year</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">lifeExp</span>, <span class="kw">colour</span> <span class="kw">=</span> <span class="no">country</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>()</pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png"><!-- --></p>
 </div>
 <div id="r-markdown-templates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#r-markdown-templates" class="anchor"></a>R Markdown Templates</h3>
+<ul>
+<li><code>fm_pdf</code></li>
+<li><code>fm_html</code></li>
+</ul>
+<p><img src="https://flowminder.github.io/FlowmindeR/rmarkdownFormats.png"><!-- --></p>
 </div>
 <div id="basemaps" class="section level3">
 <h3 class="hasAnchor">
@@ -165,6 +162,12 @@
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></li>
+</ul>
+</div>
+<div class="citation">
+<h2>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html">Citing FlowmindeR</a></li>
 </ul>
 </div>
 <div class="developers">
