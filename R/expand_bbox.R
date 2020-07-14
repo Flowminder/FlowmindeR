@@ -43,7 +43,7 @@ expand_bbox <- function(shapefile, expand = 0.1, equal = T){
   # crop tiles to boundaries with buffer:
   bbox <-
     st_as_sfc(st_bbox(bbox_input)) %>%
-    st_buffer(width * 0.1) %>%
+    st_buffer(width * expand) %>%
     as("Spatial")
 
   return(bbox)

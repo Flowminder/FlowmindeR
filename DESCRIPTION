@@ -11,7 +11,8 @@ Imports:
     dplyr,
     extrafont,
     ggpubr,
-    grid
+    grid,
+    ggthemr
 Remotes:
     github::cttobin/ggthemr
 License: GPL-2
