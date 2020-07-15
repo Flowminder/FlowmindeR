@@ -12,7 +12,8 @@ Imports:
     extrafont,
     ggpubr,
     grid,
-    ggthemr
+    ggthemr,
+    bookdown
 Remotes:
     github::cttobin/ggthemr
 License: GPL-2
