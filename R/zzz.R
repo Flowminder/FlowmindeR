@@ -17,6 +17,10 @@
 #'
 install_merriweather <- function(message = F, force = F){
 
+  if(nrow(extrafont::fonttable()) == 0){
+    extrafont::font_import(system.file("fonts", package = "FlowmindeR"), prompt = F)
+  }
+
   if(!("Merriweather Bold" %in% extrafont::fonttable()[,4])){
     extrafont::font_import(system.file("fonts", package = "FlowmindeR"), prompt = F)
   } else{
