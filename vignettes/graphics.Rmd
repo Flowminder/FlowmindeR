@@ -1,16 +1,12 @@
 ---
-title: "Graphs and Data cookbook for R"
+title: "Graphs"
 ---
 
 ```{r setup, include = F}
 library(FlowmindeR)
 ```
 
-# About
-
-This document along with the **FlowmindeR** package is designed to help simplify the creation of consistent, publication-ready graphics. This is built around the **ggplot2** R library. This document is shamelessly adpated from the [BBC style guide](https://bbc.github.io/rcookbook/). 
-
-This acts as a brief tutorial to some of the most common types of graphs we may want to produce. If you are completely new to R or ggplot and wanting some good background reading, I would recommend reviewing:
+The **FlowmindeR** package is designed to help simplify the creation of consistent, publication-ready graphics. This is built around the **ggplot2** R library, with this guide adapted from the [BBC style guide](https://bbc.github.io/rcookbook/). This acts as a brief tutorial to some of the most common types of graphs we may want to produce. If you are completely new to R or ggplot and wanting some good background reading, it would be recommended to review:
 
 - [R for Data Science](https://r4ds.had.co.nz/): comprehensive book explaining the data workflow in R. [Chapter 3](https://r4ds.had.co.nz/data-visualisation.html) covers the use of ggplot
 - [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/): book in development
@@ -29,11 +25,9 @@ library(tidyverse)
 library(gapminder)
 ```
 
-## How does the FlowmindeR package work?
+## Setting the Flowinder Style
 
-The package has two functions, `set_fm_style()` and `finalise_plot()`.
-
-`set_fm_style()`: has no arguments and used to set the default ggplot themes. What it does is generally makes text size, font and colour, axis lines, axis text and many other standard chart components into the Flowminder style.  The function is pretty basic and does not change or adapt based on the type of chart you are making, so in some cases you will need to make additional `theme` arguments in your ggplot chain if you want to make any additions or changes to the style, for example to add or remove gridlines etc. You will only need to set the theme once at the start of your script:
+`set_fm_style()`: has no arguments and used to set the default ggplot themes. It makes text size, font and colour, axis lines, axis text and many other standard chart components into the Flowminder style. The function is pretty basic and does not change or adapt based on the type of chart you are making, so in some cases you will need to make additional `theme` arguments in your ggplot chain if you want to make any additions or changes to the style, for example to add or remove gridlines etc. You will only need to set the theme once at the start of your script:
 
 ```{r message = FALSE, warning = FALSE}
 FlowmindeR::set_fm_style()
@@ -54,10 +48,8 @@ line <-
        subtitle = "Life expectancy in Malawi 1952-2007",
        y = "Life Expectancy",
        x = "Year")
-
 line
 ```
-
 You can modify these settings for your chart, or add additional theme arguments, by calling the `theme` function with the arguments you want. There are many similar examples throughout the cookbook.
 
 ```{r eval=FALSE}
@@ -68,7 +60,7 @@ line +
 
 ### Save out your finished chart
 
-`finalise_plot()`, the second function of the `FlowmindeR` package, will left-align the title, subtitle and add the footer with a source and an image in the bottom right corner of your plot. It will also save it to your specified location. The function has five arguments:
+`finalise_plot()` is the second function of the `FlowmindeR` package. This will left-align the title, subtitle and add the footer with a source and an image in the bottom right corner of your plot. It will also save it to your specified location. The function has five arguments:
 
 Here are the function arguments:
 `finalise_plot(plot_name, source, save_filepath, width_pixels = 640, height_pixels = 450)`
@@ -94,9 +86,7 @@ So once you have created your plot and are relatively happy with it, you can use
 
 It is important to mention that it is a good idea to do this early on because the position of the text and other elements do not render accurately in the RStudio Plots panel because this depends on the size and aspect ratio you want your plot to appear, so saving it out and opening up the files give you an accurate representation of how the graphic looks.
 
-The `finalise_plot()` function does more than just save out your chart, it also left-aligns the title and subtitle as is standard for BBC graphics, adds a footer with the logo on the right side and lets you input source text on the left side.
-
-So how can you save out the example plot created above?
+As an example of based on the above plot:
 
 ``` {r eval = FALSE}
 finalise_plot(plot_name = line,
@@ -107,6 +97,8 @@ finalise_plot(plot_name = line,
 ```
 
 # Types of Charts
+
+This section gives some examples of charts which can be plotted:
 
 ## Make a line chart
 
@@ -126,11 +118,20 @@ line
 
 ## Make a multiple line chart
 
+To plot multiple lines, we will want to have several variables of data. The plotting in ggplot requires that the data is in three columns (referred to as a long dataset), with a column for the X and Y variable, and then the grouping variable:
+
 ```{r}
 # Prepare data
 multiple_line_df <- gapminder %>%
-  filter(country == "China" | country == "United States") 
+  filter(country == "China" | country == "United States") %>%
+  select(country, lifeExp, year)
 
+multiple_line_df
+```
+
+An example is plotted below:
+
+```{r}
 # Make plot
 multiple_line <- ggplot(multiple_line_df, aes(x = year, y = lifeExp, colour = country)) +
   geom_line(size = 1) +
@@ -144,7 +145,7 @@ multiple_line
 
 ## Make a bar chart
 
-**ggplot** will normally add a space between the plot and the axis. This is normally fine, but with barplots especially it is recommended to remove this gap. This can be done with `scale_y_continuous(expand = expand_scale(mult = c(0, .1)))`:
+**ggplot** will normally add a space between the plot and the axis. This is normally fine, but with barplots especially it is recommended to remove this gap. This can be done with `scale_y_continuous(expand = expansion(mult = c(0, .1)))`:
 
 ```{r}
 # Prepare data
@@ -161,7 +162,7 @@ bars <- ggplot(bar_df, aes(x = country, y = lifeExp)) +
        subtitle = "Highest African life expectancy, 2007",
        x = "Country",
        y = "Life Expectancy") +
-  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+  scale_y_continuous(expand = expansion(mult = c(0, .1)))
 
 bars
 ```
@@ -194,7 +195,7 @@ stacked_bars <- ggplot(data = stacked_df,
        x = "Continent",
        y = "Proportion",
        fill = "Life Expectancy Grouped")  +
-  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+  scale_y_continuous(expand = expansion(mult = c(0, .1)))
 
 stacked_bars
 ```
@@ -230,13 +231,13 @@ grouped_bars <- ggplot(grouped_bar_df,
        x = "Country",
        y = "Life Expectancy",
        fill = "Year") +
-  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+  scale_y_continuous(expand = expansion(mult = c(0, .1)))
 
 grouped_bars
 ```
 ## Make a dumbbell chart
 
-Another way of showing difference is a dumbbell chart:
+Another way of showing difference is a dumbbell chart. This is made available through the **ggalt** package:
 
 ```{r}
 library(ggalt)
@@ -275,10 +276,12 @@ ggplot(hist_df, aes(lifeExp)) +
                      labels = c("40", "50", "60", "70", "80", "90 years")) +
   labs(title = "How life expectancy varies",
        subtitle = "Distribution of life expectancy in 2007") +
-  scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+  scale_y_continuous(expand = expansion(mult = c(0, .1)))
 ```
 
 # Tweaking Graphs
+
+As mentioned, the theme is designed to do most the basics. However, it is likely that you will need to adjust graphs in order to achieve the final output. This section explains some commonly applied changes.
 
 ## Remove the legend
 
@@ -287,7 +290,8 @@ Remove the legend to become one - it's better to label data directly with text a
 Use `guides(colour=FALSE)` to remove the legend for a specific aesthetic (replace `colour` with the relevant aesthetic). 
 
 ```{r eval=FALSE}
-multiple_line + guides(colour=FALSE)
+multiple_line + 
+  guides(colour=FALSE)
 ```
 
 You can also remove all legends in one go using `theme(legend.position = "none")`:
@@ -304,23 +308,18 @@ The legend's default position is at the right of your plot. Move it to the left,
 multiple_line + theme(legend.position = "top")
 ```
 
-To be really precise about where we want our legend to go, instead of specifying "right" or "top" to change the general position of where the legend appears in our chart, we can give it specific coordinates. 
-
-For example `legend.position=c(0.98,0.1)` will move the legend to the bottom right. For reference, c(0,0) is bottom left, c(1,0) is bottom right, c(0,1) is top left and so on). Finding the exact position may involve some trial and error. 
-
-To check the exact position where the legend appears in your finalised plot you will have to check the file that is saved out after you run your `finalise_plot()` function, as the position will be relevant to the dimensions of the plot.
+To be really precise about where we want our legend to go, instead of specifying "right" or "top" to change the general position of where the legend appears in our chart, we can give it specific coordinates. For example `legend.position=c(0.98,0.1)` will move the legend to the bottom right. For reference, c(0,0) is bottom left, c(1,0) is bottom right, c(0,1) is top left and so on). Finding the exact position may involve some trial and error. To check the exact position where the legend appears in your finalised plot you will have to check the file that is saved out after you run your `finalise_plot()` function, as the position will be relevant to the dimensions of the plot.
 
 ```{r eval=FALSE}
-multiple_line + theme(legend.position = c(0.115,1.05),
-                      legend.direction = "horizontal") +  
+multiple_line + theme(legend.position = c(0.01,0.99),
+                      legend.direction = "horizontal",
+                      legend.justification = c(0,1)) +  
   labs(title="Living longer",
        subtitle = "Life expectancy in China and the US\n")
 
 ```
 
-To get the legend flush against the left side of your chart, it may be easier to set a negative left margin for the legend using `legend.margin`. The syntax is `margin(top, right, bottom, left)`. 
-
-You'll have to experiment to find the correct number to set the margin to for your chart - save it out with `finalise_plot()` and see how it looks.
+To get the legend flush against the left side of your chart, it may be easier to set a negative left margin for the legend using `legend.margin`. The syntax is `margin(top, right, bottom, left)`. You'll have to experiment to find the correct number to set the margin to for your chart - save it out with `finalise_plot()` and see how it looks.
 
 ```{r eval=FALSE}
 + theme(legend.margin = margin(0, 0, 0, -200))
@@ -387,7 +386,7 @@ Add `coord_flip()` to make your vertical bars horizontal:
 ```{r}
 bars <- bars + 
   coord_flip() +
-  scale_y_continuous(expand = expand_scale(mult = c(0, .1))) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
   scale_x_discrete()
 
 bars

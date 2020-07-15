@@ -1,0 +1,8 @@
+---
+title: "R Markdown Templates"
+author: Michael Harper
+---
+
+# Why R Markdown
+
+This is a topic I could write a lot about! Put simply, it is a great way to explain how code is working. In addition, it greatly enhances reprodubility of code. It can even be used to build websites (like this one). I would strongly recommend learning it, and there are loads of great resources out there, primarly https://bookdown.org/yihui/rmarkdown/

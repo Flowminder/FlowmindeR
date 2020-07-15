@@ -2,41 +2,90 @@
 title: "Maps"
 ---
 
-```{r}
+```{r include=F}
 knitr::opts_chunk$set(out.width = "100%")
 ```
 
+Maps form an important aspect of Flowminder's work. This section aims to provide general guidance, but specifically explains how these can be implemented in R, spefically highlighting how the **tmap** package can be used and how custom basemaps can be added.
 
+# Setup
+
+The package **tmap** provides a range of easy to use mapping features. If you want a general introduction to the package, we recommend checking the [tmap vignette](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html).
 
 ```{r}
 library(tidyverse)
 library(tmap)
+library(FlowmindeR)
 ```
 
-# Packages Used
-
-The following packages are recommended:
+**tmap** offers a fairly simple syntax for quickly building maps. It enables static and interactive maps to be produced from the same code. This can be selected by setting `tmap_mode("plot")` or `tmap_mode("view")`. Two examples are given below:
 
 ```{r}
-
-```
-
-
-
-# Maps made in plot mode
-
-```{r}
-tmap_mode("plot")
-data(World)
-tm_shape(World) +
-  tm_polygons("HPI")
-```
-# Maps made in view mode
-
-
-```{r}
+# Interactive Graph
 tmap_mode("view")
 data(World)
 tm_shape(World) +
   tm_polygons("HPI", id = "iso_a3", popup.vars = TRUE)
 ```
+
+```{r}
+# Static Graph
+tmap_mode("plot")
+data(World)
+tm_shape(World) +
+  tm_polygons("HPI")
+```
+
+# Adding Basemaps
+
+The **ceramic package** can be used to add MapBox basemaps to plots. As advised in the [package vignettes](https://github.com/hypertidy/ceramic), when you first install the package, you will have to set the package up to your MapBox API key. You can sign up to a free account at [MapBox](https://www.mapbox.com/) which provides a generous free tier, and for personal use you should have no problem using this key as much as you need:
+
+```{r, eval=F}
+install.packages("ceramic")
+Sys.setenv(MAPBOX_API_KEY = "<yourkey>")
+```
+
+Once installed, you can use the `cc_location` function to extract basemaps for a given location. This will great a raster of the outputs. To create maps in the required stlye, you can use the `base_url` function and supply `fm_mapbox_styles`. Currently, the choices are `basic`, `no borders` or `no names`:
+
+```{r}
+library(ceramic)
+
+basemap1 <- 
+cc_location(loc = cbind(-1.5, 50.99),  buffer = 2e5,
+base_url = fm_mapbox_styles("basic"),
+max_tiles = 9)
+
+basemap2 <- 
+cc_location(loc = cbind(-1.5, 50.99),  buffer = 2e5,
+base_url = fm_mapbox_styles("no borders"),
+max_tiles = 9)
+
+basemap3 <- 
+cc_location(loc = cbind(-1.5, 50.99),  buffer = 2e5,
+base_url = fm_mapbox_styles("no names"),
+max_tiles = 9)
+```
+
+The results are presented below:
+
+```{r}
+map1 <- 
+tm_shape(basemap1) +
+tm_rgb() +
+tm_layout(frame = FALSE)
+
+map2 <- 
+tm_shape(basemap2) +
+tm_rgb() +
+tm_layout(frame = FALSE)
+
+map3 <- 
+tm_shape(basemap3) +
+tm_rgb() +
+tm_layout(frame = FALSE)
+
+tmap_arrange(map1, map2, map3)
+```
+
+
+
