@@ -14,7 +14,8 @@ set_fm_style <- function(...) {
 
   # Set theme
   ggthemr::ggthemr("fresh")
-  ggthemr::set_swatch(c("#ADD8A4", "#095798", "#9D8C70", "#BDAC90", "#2977B8", "#C11D1D", "#FAAD61"))
+  ggthemr::set_swatch(c("#ADD8A4", "#095798", "#9D8C70", "#BDAC90", "#2977B8", "#C11D1D", "#FAAD61",
+                        scales::hue_pal()(30)))
 
   # define reused style for graphs
   ggplot2::theme_update(
