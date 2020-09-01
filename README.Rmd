@@ -2,8 +2,11 @@
   output: github_document
 ---
 
-<!-- badges: start -->  <!-- badges: end -->
+<!-- badges: start --> 
+ [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Commits](https://img.shields.io/github/last-commit/Flowminder/FlowmindeR)
+ <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
